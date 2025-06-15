@@ -1,0 +1,74 @@
+@{
+    ViewBag.Title = "Tìm kiếm thời tiết";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <title>Tìm kiếm thời tiết</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5" style="max-width:600px;">
+        <h2 class="mb-4">Tìm kiếm thời tiết</h2>
+        <form method="post" class="row g-3">
+            <div class="col-12">
+                <label for="city" class="form-label">Thành phố</label>
+                <input type="text" class="form-control" id="city" name="city" placeholder="Nhập tên thành phố" required />
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+            </div>
+        </form>
+
+        @if (Model != null)
+        {
+            <div class="card mt-4 shadow" style="background:#4b437b;color:#fff;">
+                <div class="card-body text-center">
+                    <div style="font-size:3em;font-weight:bold;">@Model.Temperature°C</div>
+                    <div style="font-size:2em;font-weight:bold;">@Model.CityName</div>
+                    <div style="font-size:1.2em;margin-bottom:10px;">@Model.Status</div>
+                    <div style="color:#ffe082;">Cảm giác như: @Model.FeelsLike°C</div>
+                    <hr style="background:#fff;">
+                    <table class="table table-borderless text-white mb-0">
+                        <tr>
+                            <td>Nhiệt độ thấp nhất</td>
+                            <td>@Model.TempMin°C</td>
+                        </tr>
+                        <tr>
+                            <td>Nhiệt độ cao nhất</td>
+                            <td>@Model.TempMax°C</td>
+                        </tr>
+                        <tr>
+                            <td>Độ ẩm</td>
+                            <td>@Model.Humidity%</td>
+                        </tr>
+                        <tr>
+                            <td>Tốc độ gió</td>
+                            <td>@Model.WindSpeed km/h</td>
+                        </tr>
+                        <tr>
+                            <td>Lượng mưa (1h)</td>
+                            <td>@(Model.Rain1h ?? 0) mm</td>
+                        </tr>
+                        <tr>
+                            <td>Mật độ mây</td>
+                            <td>@Model.Cloudiness%</td>
+                        </tr>
+                        <tr>
+                            <td>Áp suất</td>
+                            <td>@Model.Pressure hPa</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div class="alert alert-danger mt-4">@ViewBag.ErrorMessage</div>
+        }
+    </div>
+</body>
+</html>
